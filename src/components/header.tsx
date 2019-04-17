@@ -1,37 +1,46 @@
-import { Link } from 'gatsby';
 import React from 'react';
+import { AppBar, Toolbar, Typography, Hidden } from '@material-ui/core';
+import { css } from '@emotion/core';
+import { Link } from 'gatsby';
+import gdlLogo from '../assets/GDL-logo.svg';
+import colors from '../styles/colors';
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-);
-
-Header.defaultProps = {
-  siteTitle: ``
+const styles = {
+  logo: css`
+    img {
+      margin-top: 2px;
+      height: 36px;
+      width: 100px;
+      margin-left: 15px;
+    }
+  `,
+  center: css`
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    text-align: center;
+  `
 };
+
+const Header = ({ siteTitle }: { siteTitle: String }) => (
+  <AppBar
+    position="static"
+    css={{ color: '#fff', backgroundColor: colors.primary }}
+  >
+    <Toolbar>
+      <Link to="/" css={styles.logo} aria-label="Global Digital Library">
+        <img src={gdlLogo} aria-hidden alt="logo" />
+      </Link>
+      <Hidden mdDown>
+        <Typography variant="h6" color="inherit" css={styles.center}>
+          {siteTitle}
+        </Typography>
+      </Hidden>
+    </Toolbar>
+  </AppBar>
+);
 
 export default Header;

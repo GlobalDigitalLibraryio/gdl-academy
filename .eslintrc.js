@@ -45,6 +45,7 @@ module.exports = {
     'space-before-blocks': 'error',
     'space-before-function-paren': ['error', 'never'],
     'space-in-parens': 'error',
-    'react/display-name': 'off'
+    'react/display-name': 'off',
+    'react/prop-types': 'ignore'
   }
 };
