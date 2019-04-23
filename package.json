@@ -9,7 +9,6 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy": "gatsby build && s3-deploy './public/**' --cwd './public/' --bucket ${GDL_ACADEMY_BUCKET} --deleteRemoved --distId ${GDL_ACADEMY_CLOUD_DIST_ID} --invalidate '/*'"
   },
   "dependencies": {
