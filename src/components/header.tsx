@@ -28,7 +28,7 @@ const styles = {
 const Header = ({ siteTitle }: { siteTitle: String }) => (
   <AppBar
     position="static"
-    css={{ color: '#fff', backgroundColor: colors.primary }}
+    css={{ color: '#fff', backgroundColor: colors.secondary }}
   >
     <Toolbar>
       <Link to="/" css={styles.logo} aria-label="Global Digital Library">

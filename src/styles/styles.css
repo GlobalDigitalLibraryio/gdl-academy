@@ -37,7 +37,7 @@ ul {
 }
 ul li::before {
   content: '\2022'; /* Add content: \2022 is the CSS Code/unicode for a bullet */
-  color: #8c1442; /* Change the color */
+  color: #0277bd; /* Change the color */
   font-weight: bold; /* If you want it to be bold */
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 1em; /* Also needed for space (tweak if needed) */
@@ -45,6 +45,6 @@ ul li::before {
 }
 
 a {
-  color: #8c1442;
+  color: #0277bd;
   text-decoration: none;
 }

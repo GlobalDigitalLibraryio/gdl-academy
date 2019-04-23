@@ -1,9 +1,9 @@
-const CRIMSON_RED = '#8C1442';
-const DEEP_RED = '#4E0322';
+const OCEAN_BLUE = '#0277BD';
+const DEEP_BLUE = '#00294F';
 
 const colors = {
-  primary: CRIMSON_RED,
-  secondary: DEEP_RED,
+  primary: OCEAN_BLUE,
+  secondary: DEEP_BLUE,
   base: {
     white: '#fff',
     black: '#444',
