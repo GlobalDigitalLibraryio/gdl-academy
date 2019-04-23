@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Hidden } from '@material-ui/core';
 import { css } from '@emotion/core';
 import { Link } from 'gatsby';
-import gdlLogo from '../assets/GDL-logo.svg';
+import gdlLogo from '../images/GDL-logo.svg';
 import colors from '../styles/colors';
 
 const styles = {
