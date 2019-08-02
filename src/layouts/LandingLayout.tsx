@@ -1,14 +1,22 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql } from "gatsby";
 import rehypeReact from 'rehype-react';
-import { Typography } from '@material-ui/core';
+import styled from '@emotion/styled';
+import {
+  Grid,
+  CardActionArea,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core"
 import { css } from '@emotion/core';
 
-import { Cover, Section, Main, Grid, GridItem, GridHeader } from '../elements';
+import { Cover, Section, Main, /*Grid,*/ GridItem, GridHeader } from '../elements';
 import SafeButton from '../components/SafeButton';
 import SEO from '../components/SEO';
 import { mq } from '../styles';
 
+import Container from '../elements/Container';
 import { Data } from '../types';
 
 const styles = {
@@ -57,6 +65,12 @@ const Paragraph = (props: any) => {
     return <Typography {...props} css={styles.body1} />;
   }
 };
+const ImageWrapper = styled.div`
+  position: absolute;
+  bottom: -30px;
+  ${mq({ right: [0, '70px'] })};
+  opacity: 0.3;
+`;
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
@@ -71,7 +85,7 @@ const renderAst = new rehypeReact({
     section: Section,
     grid: Grid,
     griditem: GridItem,
-    gridheader: GridHeader
+    gridheader: GridHeader,
   }
 }).Compiler;
 
@@ -83,11 +97,107 @@ export const query = graphql`
         title
       }
     }
+    allMarkdownRemark(
+      filter: { frontmatter: { showOnFrontPage: { eq: true } } }
+      sort: { order: DESC, fields: frontmatter___description }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          excerpt(pruneLength: 250)
+          frontmatter {
+            title
+            description
+            image
+          }
+        }
+      }
+    }
   }
 `;
 
-export default ({ data }: { data: Data }) => (
-  <SEO title={data.markdownRemark.frontmatter.title}>
-    <Main>{renderAst(data.markdownRemark.htmlAst)}</Main>
-  </SEO>
-);
+export default ({ data }: { data: Data }) => {
+  console.log("kjører");
+  return(
+    <SEO title={data.markdownRemark.frontmatter.title}>
+       <Main>{renderAst(data.markdownRemark.htmlAst)}</Main>
+       <Container
+        size="large"
+        // https://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/
+        css={css`
+          flex-shrink: 0;
+          width: 100%;
+        `}
+      >
+       <Grid container id="gridFrontPage">
+          {data.allMarkdownRemark.edges.map(({ node: post }, key) => (
+            <Grid item key={post.frontmatter.title}style={{overflow:"hidden"}}>
+              <CardActionArea
+                component="a"
+                href={post.fields.slug}
+                style={{
+                  boxShadow: "0px 0px 30px 0px rgba(0, 0, 0, 0.1)",
+                  height: "100%",
+                }}
+              >
+              <Card
+                className={
+                  key % 4 === 0 || key % 4 === 3
+                  ? key % 2 === 0
+                  ? "card"
+                  : "colorSmallScreen card"
+                  : key % 2 === 0
+                  ? "colorBigScreen card"
+                  : "colorBigScreen colorSmallScreen card"
+                }
+                style={{ height: "100%"}}
+              >
+               <CardContent>
+                 <ImageWrapper>
+                  <img
+                    src={post.frontmatter.image == "1"
+                        ? "https://academy.digitallibrary.io/static/682213eb5f2cb2a038d96ae6f7088939/6b691/rose.png"
+                        : (post.frontmatter.image == "2")
+                        ?"https://academy.digitallibrary.io/static/97b24076ced574a87ca091c689b2e3e0/89595/billy.png"
+                        :"https://developer.digitallibrary.io/static/7b81bf52add579bcf3ada893b08f5887/723e4/panico.png"
+                        }
+                    css={styles.imageWrapper}/>
+                  </ImageWrapper>
+                 <Typography
+                   variant="h5"
+                    style={{
+                      padding: "10px 0px",
+                      fontSize: "1.7rem",
+                    }}
+                 >
+                   {post.frontmatter.title}
+                 </Typography>
+                  
+                 <Typography
+                   variant="subtitle1"
+                   paragraph
+                   style={{
+                      fontSize: "16px",
+                      fontFamily: "Lato, Roboto, sans-serif",
+                   }}
+                  >
+                    {post.frontmatter.description}
+                    {console.log("FRontmatter: ", post.frontmatter)}
+                  </Typography>
+                   <Typography
+                     variant="subtitle1"
+                     style={{ color: "#0277bd" }}
+                    >
+                       Read more...
+                    </Typography>
+                </CardContent>
+              </Card>
+           </CardActionArea>
+        </Grid>
+       ))}
+     </Grid>
+     </Container>
+   </SEO>);
+};

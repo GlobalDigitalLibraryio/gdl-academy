@@ -5,9 +5,9 @@
   "author": "gdl@knowit.no",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "dev": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
+    "start": "npm run dev",
     "serve": "gatsby serve",
     "deploy": "gatsby build && s3-deploy './public/**' --cwd './public/' --bucket ${GDL_ACADEMY_BUCKET} --deleteRemoved --distId ${GDL_ACADEMY_CLOUD_DIST_ID} --invalidate '/*'"
   },

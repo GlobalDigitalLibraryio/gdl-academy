@@ -36,3 +36,4 @@ const Section = styled.section<{ invert: string }>`
 `;
 
 export default Section;
+
