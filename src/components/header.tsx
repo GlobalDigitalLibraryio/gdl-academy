@@ -27,7 +27,7 @@ const styles = {
 
 const Header = ({ siteTitle }: { siteTitle: String }) => (
   <AppBar
-    position="static"
+    position="sticky"
     css={{ color: '#fff', backgroundColor: colors.secondary }}
   >
     <Toolbar>

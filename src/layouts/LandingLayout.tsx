@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql } from "gatsby";
 import rehypeReact from 'rehype-react';
-import styled from '@emotion/styled';
 import {
   Grid,
   CardActionArea,
@@ -11,14 +10,19 @@ import {
 } from "@material-ui/core"
 import { css } from '@emotion/core';
 
-import { Cover, Section, Main, /*Grid,*/ GridItem, GridHeader } from '../elements';
+import { Cover, Main, Grid as EGrid, GridItem, GridHeader } from '../elements';
 import SafeButton from '../components/SafeButton';
 import SEO from '../components/SEO';
 import { mq } from '../styles';
-
-import Container from '../elements/Container';
+import { misc } from '../styles';
 import { Data } from '../types';
+import gitHubLogo from '../images/github.svg';
+import libraryBooks from '../images/librarybooks.svg';
+import billy from '../../content/images/billy.png'
+import panico from '../../content/images/panico.png'
+import rose from '../../content/images/rose.png'
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = {
   h1: css`
     color: white;
@@ -39,38 +43,12 @@ const styles = {
   button: mq({
     gridArea: 'button',
     marginLeft: ['auto', 'inherit'],
-    marginRight: ['auto', 'inherit']
-  }),
-  imageWrapper: mq({
-    gridArea: 'image',
-    width: 180,
-    marginLeft: ['auto', 'inherit'],
-    marginRight: ['auto', 'inherit']
+    marginRight: ['auto', 'inherit'],
+    color: 'white',
+    border: '1.7px solid white',
+    marginTop: 20,
   })
 };
-
-const Paragraph = (props: any) => {
-  if (props.children.length === 1 && typeof props.children[0] === 'object') {
-    const firstChild = props.children[0];
-    if (!!firstChild.props.src) {
-      return <p {...props} style={{ gridArea: 'image' }} />;
-    } else if (!!firstChild.props.to) {
-      return <p {...props} css={styles.button} />;
-    } else if (firstChild.props.className === 'gatsby-resp-image-wrapper') {
-      return <p {...props} css={styles.imageWrapper} />;
-    } else {
-      return <p {...props} />;
-    }
-  } else {
-    return <Typography {...props} css={styles.body1} />;
-  }
-};
-const ImageWrapper = styled.div`
-  position: absolute;
-  bottom: -30px;
-  ${mq({ right: [0, '70px'] })};
-  opacity: 0.3;
-`;
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
@@ -79,13 +57,8 @@ const renderAst = new rehypeReact({
     h2: (props: any) => <Typography {...props} css={styles.h2} variant="h5" />,
     h3: (props: any) => <Typography {...props} css={styles.h3} variant="h5" />,
     button: (props: any) => <SafeButton {...props} css={styles.button} />,
-
-    p: Paragraph,
-    cover: Cover,
-    section: Section,
-    grid: Grid,
-    griditem: GridItem,
-    gridheader: GridHeader,
+    p: (props: any) => <Typography {...props} css={styles.body1} />,
+    cover: Cover
   }
 }).Compiler;
 
@@ -110,7 +83,6 @@ export const query = graphql`
           frontmatter {
             title
             description
-            image
           }
         }
       }
@@ -118,86 +90,105 @@ export const query = graphql`
   }
 `;
 
+const test = {
+
+}
+
 export default ({ data }: { data: Data }) => {
-  console.log("kjører");
   return(
     <SEO title={data.markdownRemark.frontmatter.title}>
        <Main>{renderAst(data.markdownRemark.htmlAst)}</Main>
-       <Container
-        size="large"
-        // https://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/
-        css={css`
-          flex-shrink: 0;
-          width: 100%;
-        `}
+       <div
+        style={{maxWidth: misc.containers.large,
+        width: '100vw', margin:'auto'}}
       >
-       <Grid container id="gridFrontPage">
-          {data.allMarkdownRemark.edges.map(({ node: post }, key) => (
-            <Grid item key={post.frontmatter.title}style={{overflow:"hidden"}}>
-              <CardActionArea
-                component="a"
-                href={post.fields.slug}
-                style={{
-                  boxShadow: "0px 0px 30px 0px rgba(0, 0, 0, 0.1)",
-                  height: "100%",
-                }}
-              >
-              <Card
-                className={
-                  key % 4 === 0 || key % 4 === 3
-                  ? key % 2 === 0
-                  ? "card"
-                  : "colorSmallScreen card"
-                  : key % 2 === 0
-                  ? "colorBigScreen card"
-                  : "colorBigScreen colorSmallScreen card"
-                }
-                style={{ height: "100%"}}
-              >
-               <CardContent>
-                 <ImageWrapper>
+
+<Grid id="gridFrontPage">
+            {data.allMarkdownRemark.edges.map(({ node: post }, key) => (
+              <Grid item key={post.fields.slug}>
+                <a
+                  href={post.fields.slug}
+                  style={{
+                    boxShadow: "0px 0px 30px 0px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+               <Card
+                  className={
+                    key % 4 === 0 || key % 4 === 3
+                    ? key % 2 === 0
+                    ? "card"
+                    : "colorSmallScreen card"
+                    : key % 2 === 0
+                    ? "colorBigScreen card"
+                    : "colorBigScreen colorSmallScreen card"
+                  }
+                >
+                 <CardContent style={{ display: 'flex', flexDirection: 'row'}}>
+                   <div style={{ margin:'auto'}}>
                   <img
-                    src={post.frontmatter.image == "1"
-                        ? "https://academy.digitallibrary.io/static/682213eb5f2cb2a038d96ae6f7088939/6b691/rose.png"
-                        : (post.frontmatter.image == "2")
-                        ?"https://academy.digitallibrary.io/static/97b24076ced574a87ca091c689b2e3e0/89595/billy.png"
-                        :"https://developer.digitallibrary.io/static/7b81bf52add579bcf3ada893b08f5887/723e4/panico.png"
-                        }
-                    css={styles.imageWrapper}/>
-                  </ImageWrapper>
-                 <Typography
-                   variant="h5"
-                    style={{
-                      padding: "10px 0px",
-                      fontSize: "1.7rem",
-                    }}
-                 >
-                   {post.frontmatter.title}
-                 </Typography>
-                  
-                 <Typography
-                   variant="subtitle1"
-                   paragraph
-                   style={{
-                      fontSize: "16px",
-                      fontFamily: "Lato, Roboto, sans-serif",
-                   }}
+                     src={key % 3 == 0 ? rose : key % 3 == 1 ?billy :panico}
+                      style={{width:'150px', paddingRight:20, }}
+                  />
+                   </div>
+                   <div>
+                   <Typography
+                     variant="h5"
+                      style={{
+                        padding: "10px 0px",
+                        fontSize: "1.7rem",
+                      }}
+                   >
+                     {post.frontmatter.title}
+                  </Typography>
+                  <Typography
+                     variant="subtitle1"
+                     paragraph
+                     style={{
+                        fontSize: "16px",
+                        fontFamily: "Lato, Roboto, sans-serif",
+                     }}
                   >
                     {post.frontmatter.description}
                     {console.log("FRontmatter: ", post.frontmatter)}
                   </Typography>
-                   <Typography
-                     variant="subtitle1"
-                     style={{ color: "#0277bd" }}
-                    >
-                       Read more...
-                    </Typography>
-                </CardContent>
-              </Card>
-           </CardActionArea>
+                  <Typography
+                    variant="subtitle1"
+                    style={{ color: "#0277bd" }}
+                  >
+                     Read more...
+                  </Typography>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
         </Grid>
        ))}
-     </Grid>
-     </Container>
-   </SEO>);
+      </Grid>
+
+      <Card style={{marginTop:"30px"}}>
+        <EGrid>
+           <GridItem divider="yes">
+            <GridHeader>
+              <img alt ="github logo" src={gitHubLogo}/>
+              <Typography css={styles.h3} variant="h5">Item</Typography>
+            </GridHeader>
+            <Typography css={styles.body1} >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Typography>
+            <SafeButton  to="/">Button</SafeButton >
+          </GridItem>
+          <GridItem divider="yes">
+            <GridHeader>
+              <img alt ="github logo" src={libraryBooks}/>
+              <Typography css={styles.h3} variant="h5">Item</Typography>
+            </GridHeader>
+            <Typography css={styles.body1} >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Typography>
+            <SafeButton  to="/">Button</SafeButton >
+          </GridItem>
+        </EGrid>
+      </Card>
+    </div>
+ </SEO>);
 };
