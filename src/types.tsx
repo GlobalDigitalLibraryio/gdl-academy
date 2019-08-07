@@ -18,9 +18,10 @@ type Node ={
 
 export type Data = {
   markdownRemark: {
-    htmlAst: string
+    htmlAst: string,
     frontmatter: {
-      title: string
+      title: string,
+      date: string,
     };
   },
   allMarkdownRemark:{
