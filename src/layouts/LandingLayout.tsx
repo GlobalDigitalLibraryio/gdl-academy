@@ -22,8 +22,6 @@ import billy from '../../content/images/billy.png'
 import panico from '../../content/images/panico.png'
 import rose from '../../content/images/rose.png'
 
-window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
-
 const styles = {
   h1: css`
     color: white;
@@ -40,15 +38,7 @@ const styles = {
   body1: css`
     line-height: 1.7;
     font-size: 1rem;
-  `,
-  button: mq({
-    gridArea: 'button',
-    marginLeft: ['auto', 'inherit'],
-    marginRight: ['auto', 'inherit'],
-    color: 'white',
-    border: '1.7px solid white',
-    marginTop: 20,
-  })
+  `
 };
 
 const renderAst = new rehypeReact({
@@ -57,7 +47,6 @@ const renderAst = new rehypeReact({
     h1: (props: any) => <Typography {...props} css={styles.h1} variant="h4" />,
     h2: (props: any) => <Typography {...props} css={styles.h2} variant="h5" />,
     h3: (props: any) => <Typography {...props} css={styles.h3} variant="h5" />,
-    button: (props: any) => <SafeButton {...props} css={styles.button} />,
     p: (props: any) => <Typography {...props} css={styles.body1} />,
     cover: Cover
   }
