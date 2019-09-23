@@ -105,4 +105,23 @@ you can use:
 ...
 ```
 
+## Video
+
+To add youtube only video:
+
+```xml
+
+# good
+<youtube>
+https://www.youtube.com/watch?v=RuTNHmMShUw
+</youtube>
+
+# bad
+<youtube>https://www.youtube.com/watch?v=RuTNHmMShUw</youtube>
+```
+
+<youtube>
+https://www.youtube.com/watch?v=RuTNHmMShUw
+</youtube>
+
 </content>
