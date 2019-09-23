@@ -105,4 +105,23 @@ you can use:
 ...
 ```
 
+## Video
+
+To add video use:
+
+```xml
+
+# good
+<video>
+https://www.youtube.com/watch?v=RuTNHmMShUw
+</video>
+
+# bad
+<video>https://www.youtube.com/watch?v=RuTNHmMShUw</video>
+```
+
+<video>
+https://www.youtube.com/watch?v=RuTNHmMShUw
+</video>
+
 </content>

@@ -62,6 +62,29 @@ const Div = (props: any) => {
   return <div {...props} style={{ width: '100vw' }} />;
 };
 
+const Video = ({ children }: { children: Array<string> }) => (
+  <div
+    // 56.25% is the magic that make iframe responsive
+    // https://blog.theodo.com/2018/01/responsive-iframes-css-trick/
+    style={{ position: 'relative', overflow: 'hidden', paddingTop: '56.25%' }}
+  >
+    <iframe
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        border: 0
+      }}
+      src={children[0].replace('watch?v=', 'embed/')}
+      frameBorder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  </div>
+);
+
 const renderAst = new rehypeReact({
   createElement: React.createElement,
   components: {
@@ -77,7 +100,8 @@ const renderAst = new rehypeReact({
     content: (p: any) => <div {...p} css={styles.content} />,
     backbutton: BackButton,
     bottomimagewrapper: ImageWrapper,
-    div: Div
+    div: Div,
+    video: Video
   }
 }).Compiler;
 
