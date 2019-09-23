@@ -62,7 +62,7 @@ const Div = (props: any) => {
   return <div {...props} style={{ width: '100vw' }} />;
 };
 
-const Video = ({ children }: { children: Array<string> }) => (
+const Youtube = ({ children }: { children: Array<string> }) => (
   <div
     // 56.25% is the magic that make iframe responsive
     // https://blog.theodo.com/2018/01/responsive-iframes-css-trick/
@@ -101,7 +101,7 @@ const renderAst = new rehypeReact({
     backbutton: BackButton,
     bottomimagewrapper: ImageWrapper,
     div: Div,
-    video: Video
+    youtube: Youtube
   }
 }).Compiler;
 
