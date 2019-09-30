@@ -1,5 +1,4 @@
 import React from 'react';
-import { JssProvider } from 'react-jss';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
@@ -11,18 +10,13 @@ const sheetsRegistryMap = muiPageContext.sheetsManager;
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <JssProvider
-      registry={muiPageContext.sheetsRegistry}
-      generateClassName={muiPageContext.generateClassName}
+    <MuiThemeProvider
+      theme={muiPageContext.theme}
+      sheetsManager={sheetsRegistryMap}
     >
-      <MuiThemeProvider
-        theme={muiPageContext.theme}
-        sheetsManager={sheetsRegistryMap}
-      >
-        <CssBaseline />
-        {element}
-      </MuiThemeProvider>
-    </JssProvider>
+      <CssBaseline />
+      {element}
+    </MuiThemeProvider>
   );
 };
 

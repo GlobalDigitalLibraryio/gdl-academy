@@ -16,6 +16,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
+        options: {
+          stylesProvider: {
+            injectFirst: true
+          }
+        },
         theme: {
           primaryColor: PRIMARY_COLOR
         }
