@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { mq } from '../styles';
-import cover from '../images/cover.jpg';
+import cover from '../images/cover1.jpg';
 
 const Cover = styled.div`
   display: flex;

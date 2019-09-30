@@ -36,6 +36,17 @@ module.exports = {
         name: `pages`
       }
     },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Lato`,
+            variants: [`400`, `700`]
+          }
+        ]
+      }
+    },
     // Handle our static markdown files
     {
       resolve: `gatsby-transformer-remark`,

@@ -6,14 +6,9 @@ import getPageContext from './src/getPageContext';
 
 const muiPageContext = getPageContext();
 
-const sheetsRegistryMap = muiPageContext.sheetsManager;
-
 export const wrapRootElement = ({ element }) => {
   return (
-    <MuiThemeProvider
-      theme={muiPageContext.theme}
-      sheetsManager={sheetsRegistryMap}
-    >
+    <MuiThemeProvider theme={muiPageContext.theme}>
       <CssBaseline />
       {element}
     </MuiThemeProvider>
@@ -22,11 +17,6 @@ export const wrapRootElement = ({ element }) => {
 
 export const onRenderBody = ({ setHeadComponents }) => {
   setHeadComponents([
-    <link
-      key="font-lato-stylesheet"
-      href="https://fonts.googleapis.com/css?family=Lato:400,700"
-      rel="stylesheet"
-    />,
     // Material UI
     <style
       type="text/css"
