@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { mq, colors } from '../styles';
+import { mq } from '../styles';
+import cover from '../images/cover.jpg';
 
 const Cover = styled.div`
   display: flex;
@@ -8,7 +9,14 @@ const Cover = styled.div`
   min-height: 380px;
   width: 100%;
   color: white;
-  background-color: ${colors.primary};
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 41, 79, 0.7),
+      rgba(0, 41, 79, 0.7)
+    ),
+    url(${cover});
+  background-position: center;
+  background-size: cover;
   ${mq({ padding: ['70px 30px', '50px 120px'] })} p {
     color: white;
   }
