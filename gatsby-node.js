@@ -7,16 +7,6 @@ const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const replacePath = path => (path === `/` ? path : path.replace(/\/$/, ``));
 
-// https://www.gatsbyjs.org/docs/debugging-html-builds/#fixing-third-party-modules
-exports.onCreateWebpackConfig = ({ actions }) => {
-  const __DEV__ = process.env.NODE_ENV !== 'production';
-
-  actions.setBabelPlugin({
-    name: 'babel-plugin-emotion',
-    options: { sourceMap: !__DEV__ }
-  });
-};
-
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {

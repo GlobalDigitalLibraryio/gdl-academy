@@ -40,7 +40,12 @@ const styles = {
   button: {
     marginTop: 20,
     gridArea: 'button'
-  }
+  },
+  innerDiv: css`
+    > div {
+      min-height: 80vh;
+    }
+  `
 };
 
 const ImageWrapper = styled.div`
@@ -118,6 +123,6 @@ export const query = graphql`
 
 export default ({ data }: { data: Data }) => (
   <SEO title={data.markdownRemark.frontmatter.title}>
-    <Main>{renderAst(data.markdownRemark.htmlAst)}</Main>
+    <Main css={styles.innerDiv}>{renderAst(data.markdownRemark.htmlAst)}</Main>
   </SEO>
 );

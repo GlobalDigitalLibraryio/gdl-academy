@@ -16,6 +16,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
+        options: {
+          stylesProvider: {
+            injectFirst: true
+          }
+        },
         theme: {
           primaryColor: PRIMARY_COLOR
         }
@@ -29,6 +34,17 @@ module.exports = {
       options: {
         path: `${__dirname}/content`,
         name: `pages`
+      }
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Lato`,
+            variants: [`400`, `700`]
+          }
+        ]
       }
     },
     // Handle our static markdown files
